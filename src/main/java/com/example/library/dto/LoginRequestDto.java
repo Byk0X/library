@@ -1,0 +1,16 @@
+package com.example.library.dto;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+public record LoginRequestDto(
+
+        @NotBlank(message = "Email nie może być pusty")
+        @Email(message = "Format adresu email jest niepoprawny")
+        String email,
+
+        @NotBlank(message = "Haslo nie może być puste")
+        String password) {
+
+
+}

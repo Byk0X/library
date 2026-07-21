@@ -1,4 +1,80 @@
-<h1>
-    Strona od rejestracji
+<mat-card class="register-card" appearance="outlined">
+    <mat-card-header>
+        <mat-card-title> Rejestracja </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="register-box ">
+            <form [formGroup]="registerForm" (ngSubmit)=register()>
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Hasło</mat-label>
+                    <input type="password" matInput formControlName="password">
+                    @if (registerForm.controls.password.hasError('required')){
+                    <mat-error>
+                        Haslo jest wymagane.
+                    </mat-error>
+                    }
 
-</h1>
+                    @if (registerForm.controls.password.hasError('minLength')){
+                    Hasło musi mieć co najmniej 8 znaków.
+                    }
+
+                    @if (registerForm.controls.password.hasError('pattern')){
+                    <mat-error>
+                        Hasło musi zawierać małą literę, wielką literę, cyfrę i znak specjalny.
+                    </mat-error>
+                    }
+
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label> Potwierdź hasło</mat-label>
+                    <input type="password" matInput formControlName="confirmPassword">
+
+                    @if (registerForm.hasError('passwordMismatch') &&
+                    registerForm.controls.confirmPassword.touched) {
+                    <mat-error>
+                        Hasła muszą być identyczne.
+                    </mat-error>
+                    }
+
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Imię</mat-label>
+                    <input matInput formControlName="firstName">
+                    @if (registerForm.controls.firstName.hasError('required')) {
+                    <mat-error>
+                        Imię jest wymagane
+                    </mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Nazwisko</mat-label>
+                    <input matInput formControlName="lastName">
+                    @if (registerForm.controls.lastName.hasError('required')) {
+                    <mat-error>Nazwisko jest wymagane</mat-error>
+                    }
+                </mat-form-field>
+
+                <button matButton="filled" type="submit" [disabled]="!registerForm.valid">
+                    Zarejestruj się
+                </button>
+
+                <button matButton="outlined" routerLink="/login">
+                    Masz konto? Zaloguj się.
+                </button>
+
+            </form>
+        </div>
+
+
+
+
+    </mat-card-content>
+
+</mat-card>
